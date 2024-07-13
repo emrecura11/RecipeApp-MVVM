@@ -11,4 +11,8 @@
         android:id="@+id/search"
         android:icon="@drawable/baseline_search_24"
         android:title="Search" />
+    <item
+        android:id="@+id/tags"
+        android:icon="@drawable/baseline_category_24"
+        android:title="Tags" />
 </menu>

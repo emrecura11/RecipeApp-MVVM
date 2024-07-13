@@ -15,30 +15,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator_layout"
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:backgroundTint="#FF5DA4">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/bottom_navigation"
-                app:menu="@menu/bottom_menu"
-                app:labelVisibilityMode="labeled"
-                android:background="@android:color/transparent"
-                />
-        </com.google.android.material.bottomappbar.BottomAppBar>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    
-
-
-
+        android:layout_height="wrap_content"
+        android:background="#FF80B8"
+        app:layout_constraintHeight_percent="0.1"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
