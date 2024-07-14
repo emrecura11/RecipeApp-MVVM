@@ -20,8 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var recipeService: RecipeService
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
 
@@ -38,11 +37,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             when(item.itemId) {
                 R.id.home -> replaceFragment(HomeFragment())
                 R.id.search -> replaceFragment(SearchFragment())
+                R.id.tags -> replaceFragment(TagsFragment())
             }
             true
 
         }
-        recipeService = ApiClient.getClient().create(RecipeService::class.java)
 
         replaceFragment(HomeFragment())
 
@@ -51,29 +50,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit()
     }
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-        when (item.itemId) {
-            R.id.home -> replaceFragment(HomeFragment())
-            R.id.search -> replaceFragment(SearchFragment())
-        }
-        return true
-    }
 
-     fun getRecipes() {
-        val call = recipeService.getAllRecipes(30)
 
-        call.enqueue(object : Callback<Recipes> {
-            override fun onResponse(call: Call<Recipes>, respose: Response<Recipes>) {
-                if (respose.isSuccessful){
-                    Log.d("recipes", respose.body()!!.recipes.toString())
-                }
-            }
-
-            override fun onFailure(call: Call<Recipes>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-        })
-    }
 }

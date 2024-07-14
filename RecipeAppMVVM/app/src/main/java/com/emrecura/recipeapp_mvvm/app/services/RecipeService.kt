@@ -9,4 +9,6 @@ interface RecipeService {
 
     @GET("recipes")
     fun getAllRecipes(@Query("limit") limit : Int) : Call<Recipes>
+    @GET("recipes/tags")
+    fun getTagsName() : Call<List<String>>
 }

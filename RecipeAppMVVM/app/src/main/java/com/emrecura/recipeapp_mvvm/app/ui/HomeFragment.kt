@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emrecura.recipeapp_mvvm.R
 import com.emrecura.recipeapp_mvvm.app.adapters.RecipeItemAdapter
+import com.emrecura.recipeapp_mvvm.app.adapters.TagsItemAdapter
 
 class HomeFragment : Fragment() {
 
@@ -24,13 +25,19 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.recipes_recycler_view)
+        val recipesRecyclerView: RecyclerView = view.findViewById(R.id.recipes_recycler_view)
+        val tagsRecyclerView: RecyclerView = view.findViewById(R.id.kitchens_recycler_view)
         val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
 
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recipesRecyclerView.layoutManager = LinearLayoutManager(context)
+        tagsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        homeViewModel.tags.observe(viewLifecycleOwner, Observer {tags ->
+            tagsRecyclerView.adapter = TagsItemAdapter(tags)
+        })
 
         homeViewModel.recipes.observe(viewLifecycleOwner, Observer { recipes ->
-            recyclerView.adapter = RecipeItemAdapter(recipes)
+            recipesRecyclerView.adapter = RecipeItemAdapter(recipes)
         })
 
         homeViewModel.error.observe(viewLifecycleOwner, Observer { errorMessage ->
