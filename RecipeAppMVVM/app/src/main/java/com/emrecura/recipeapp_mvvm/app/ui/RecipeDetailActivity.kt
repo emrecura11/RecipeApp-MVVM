@@ -1,5 +1,6 @@
 package com.emrecura.recipeapp_mvvm.app.ui
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -35,12 +36,11 @@ class RecipeDetailActivity : AppCompatActivity() {
         recipe.let {
             viewModel.setRecipe(it)
         }
+
         val ingredientRecyclerView = binding.detailIngredientsRecyclerView
         val instructionsRecyclerView = binding.detailInstructionsRecyclerView
-
         ingredientRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         instructionsRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false)
-
 
 
         viewModel.recipe.observe(this, Observer { recipe ->
@@ -50,6 +50,15 @@ class RecipeDetailActivity : AppCompatActivity() {
             binding.recipeTitle.text = recipe.name
             ingredientRecyclerView.adapter = TagsItemAdapter(recipe.ingredients)
             instructionsRecyclerView.adapter = InstructionItemAdapter(recipe.instructions)
+            binding.ratingBar.progressDrawable.setColorFilter(
+                resources.getColor(R.color.red, theme),
+                PorterDuff.Mode.SRC_ATOP
+            )
+
         })
+
+        binding.arrowBack.setOnClickListener {
+            finish()
+        }
     }
 }

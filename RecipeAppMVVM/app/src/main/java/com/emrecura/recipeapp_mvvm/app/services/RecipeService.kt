@@ -11,4 +11,6 @@ interface RecipeService {
     fun getAllRecipes(@Query("limit") limit : Int) : Call<Recipes>
     @GET("recipes/tags")
     fun getTagsName() : Call<List<String>>
+    @GET("recipes/search")
+    fun searchRecipes(@Query("q") query: String): Call<Recipes>
 }
