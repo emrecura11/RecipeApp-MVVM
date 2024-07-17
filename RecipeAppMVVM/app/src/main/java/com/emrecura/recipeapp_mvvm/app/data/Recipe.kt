@@ -1,5 +1,7 @@
 package com.emrecura.recipeapp_mvvm.app.data
 
+import java.io.Serializable
+
 data class Recipe(
     val caloriesPerServing: Int,
     val cookTimeMinutes: Int,
@@ -17,4 +19,4 @@ data class Recipe(
     val servings: Int,
     val tags: List<String>,
     val userId: Int
-)
+): Serializable

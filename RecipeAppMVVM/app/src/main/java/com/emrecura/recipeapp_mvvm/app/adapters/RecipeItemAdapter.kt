@@ -10,12 +10,19 @@ import com.bumptech.glide.Glide
 import com.emrecura.recipeapp_mvvm.R
 import com.emrecura.recipeapp_mvvm.app.data.Recipe
 
-class RecipeItemAdapter (private val recipeList: List<Recipe>) : RecyclerView.Adapter<RecipeItemAdapter.RecipeViewHolder>() {
+class RecipeItemAdapter (private val recipeList: List<Recipe>, private val onItemClicked: (Recipe) -> Unit)
+    : RecyclerView.Adapter<RecipeItemAdapter.RecipeViewHolder>() {
 
     class RecipeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val rImage: ImageView = itemView.findViewById(R.id.recipe_image)
         val rName: TextView = itemView.findViewById(R.id.recipe_name)
         val rDescription: TextView = itemView.findViewById(R.id.recipe_description)
+
+        fun bind(recipe: Recipe, onItemClicked: (Recipe) -> Unit) {
+            itemView.setOnClickListener {
+                onItemClicked(recipe)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -29,6 +36,9 @@ class RecipeItemAdapter (private val recipeList: List<Recipe>) : RecyclerView.Ad
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val recipe = recipeList[position]
+
+        holder.bind(recipe, onItemClicked)
+
         Glide.with(holder.itemView.context).load(recipe.image).into(holder.rImage)
         holder.rName.text = recipe.name
         holder.rDescription.text = recipe.cuisine
