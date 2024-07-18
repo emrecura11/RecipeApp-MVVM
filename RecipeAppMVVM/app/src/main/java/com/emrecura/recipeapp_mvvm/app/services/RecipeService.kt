@@ -3,6 +3,7 @@ package com.emrecura.recipeapp_mvvm.app.services
 import com.emrecura.recipeapp_mvvm.app.data.Recipes
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RecipeService {
@@ -13,4 +14,6 @@ interface RecipeService {
     fun getTagsName() : Call<List<String>>
     @GET("recipes/search")
     fun searchRecipes(@Query("q") query: String): Call<Recipes>
+    @GET("recipes/tag/{tagName}")
+    fun getRecipesByTag(@Path("tagName") tagName: String): Call<Recipes>
 }

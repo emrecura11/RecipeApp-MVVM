@@ -1,5 +1,6 @@
 package com.emrecura.recipeapp_mvvm.app.ui
 
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -49,7 +50,9 @@ class RecipeDetailActivity : AppCompatActivity() {
             binding.ratingBar.rating = recipe.rating.toFloat()
             binding.recipeTitle.text = recipe.name
             ingredientRecyclerView.adapter = TagsItemAdapter(recipe.ingredients)
-            instructionsRecyclerView.adapter = InstructionItemAdapter(recipe.instructions)
+            instructionsRecyclerView.adapter = InstructionItemAdapter(recipe.instructions){ string->
+
+            }
             binding.ratingBar.progressDrawable.setColorFilter(
                 resources.getColor(R.color.red, theme),
                 PorterDuff.Mode.SRC_ATOP
